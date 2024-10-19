@@ -1,49 +1,48 @@
-﻿using Module07DataAccess.Services;
+﻿
 using MySql.Data.MySqlClient;
+using Module07DataAccess.Services;
+using System.Linq.Expressions;
+using System;
 
-namespace Module07DataAccess;
-
-public partial class MainPage : ContentPage
+namespace Module07DataAccess
 {
-    int count = 0;
-
-    private readonly DataBaseConnectionService _dbConnenctonService;
-
-    public MainPage()
+    public partial class MainPage : ContentPage
     {
-        InitializeComponent();
+        int count = 0;
 
-        //initialize database connectivity
-        _dbConnenctonService = new DataBaseConnectionService();
-    }
+        private readonly DatabaseConnectionService _dbConnectionService;
 
-    private async void PersonelPage(object sender, EventArgs e)
-    {
-        await Shell.Current.GoToAsync("//ViewPersonal");
-    }
-
-    private async void OnTestConnection(object sender, EventArgs e)
-    {
-        var connectionString = _dbConnenctonService.GetConnectionString();
-        try
+        public MainPage()
         {
-            using (var connection = new MySqlConnection(connectionString))
+            InitializeComponent();
+
+            _dbConnectionService = new DatabaseConnectionService();
+        }
+
+        private async void OnTestConnectionClicked(object sender, EventArgs e)
+        {
+            var connectionString = _dbConnectionService.GetConnectionString();
+            try
             {
-                await connection.OpenAsync();
-                ConnectionStatusLabel.Text = "Connection SUCCESS YEAH!";
-                ConnectionStatusLabel.TextColor = Colors.Yellow;
+                using (var connection = new MySqlConnection(connectionString))
+                {
+                    await connection.OpenAsync();
+                    ConnectionStatusLabel.Text = $"Connection Successful";
+                    ConnectionStatusLabel.TextColor = Colors.Green;
+                }
+            }
+            catch (Exception ex)
+            {
+
+                ConnectionStatusLabel.Text = $"Connection Failed";
+                ConnectionStatusLabel.TextColor = Colors.Red;
+
             }
         }
-
-        catch (Exception ex)
+        private async void OpenViewPersonal(object sender, EventArgs e)
         {
-            ConnectionStatusLabel.Text = $"Connection Failed: {ex.Message}";
-            ConnectionStatusLabel.TextColor = Colors.Red;
-
+            await Shell.Current.GoToAsync("//ViewPersonal");
         }
-
-
-
     }
 
 }
