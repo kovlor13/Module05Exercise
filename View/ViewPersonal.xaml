@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Module07DataAccess.View.ViewPersonal"
+             Title="ViewPersonal">
+    <ContentPage.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#7EC6E7" Offset="0.0" />
+            <GradientStop Color="#A4D8E1" Offset="1.0" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
+
+    <!-- Add ScrollView here to make the content scrollable -->
+    <ScrollView>
+        <VerticalStackLayout Padding="10">
+            <Label Text="Personal Information"
+                   FontSize="20"
+                   HorizontalOptions="Center"
+                   FontAttributes="Bold"
+                   TextColor="#ffffff"/>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Image Source="employees.png" 
+                       WidthRequest="450" 
+                       HeightRequest="450" 
+                       VerticalOptions="Center" 
+                       Margin="0,0,5,0"/>
+                <ListView Grid.Row="1" 
+                          ItemsSource="{Binding PersonalList}" 
+                          SeparatorVisibility="None" 
+                          Margin="0" 
+                          BackgroundColor="Transparent">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Frame Margin="10,5" 
+                                       Padding="10" 
+                                       CornerRadius="10" 
+                                       HasShadow="True" 
+                                       BackgroundColor="White"
+                                       HeightRequest="120">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+
+                                        <StackLayout Grid.Column="0" Grid.RowSpan="2" Margin="0,0,5,0">
+                                            <StackLayout Orientation="Horizontal" Margin="0,0,0,5">
+                                                <Image Source="iconemp.png" 
+                                                       WidthRequest="13" 
+                                                       HeightRequest="13" 
+                                                       VerticalOptions="Center" 
+                                                       Margin="0,0,5,0"/>
+                                                <Label Text="{Binding Name}" 
+                                                       FontAttributes="Bold" 
+                                                       FontSize="16" 
+                                                       TextColor="#2C3E50"
+                                                       LineBreakMode="WordWrap"
+                                                       Margin="0,0,5,0"/>
+                                                <Label Text="{Binding EmployeeID}" 
+                                                       FontSize="14" 
+                                                       TextColor="#2C3E50"
+                                                       LineBreakMode="WordWrap"/>
+                                            </StackLayout>
+                                            <Label Text="{Binding email}" 
+                                                   FontSize="14" 
+                                                   TextColor="#2C3E50"
+                                                   LineBreakMode="WordWrap"
+                                                   Margin="0,0,0,5"/>
+                                            <Label Text="{Binding Address}" 
+                                                   FontSize="14" 
+                                                   TextColor="#2C3E50"
+                                                   LineBreakMode="WordWrap"
+                                                   Margin="0,0,0,5"/>
+                                            <Label Text="{Binding ContactNo}" 
+                                                   FontSize="14" 
+                                                   TextColor="#2C3E50"
+                                                   LineBreakMode="WordWrap"
+                                                   Margin="0,0,0,5"/>
+                                        </StackLayout>
+
+                                        <Button Text="X" 
+                                                BackgroundColor="Transparent" 
+                                                TextColor="Red" 
+                                                FontSize="14"
+                                                WidthRequest="30" 
+                                                HeightRequest="30" 
+                                                HorizontalOptions="End" 
+                                                VerticalOptions="Center"/>
+                                    </Grid>
+                                </Frame>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+
+            <Button Text="Add Employee"
+                    BackgroundColor="White"
+                    TextColor="#003366"
+                    FontSize="18"
+                    FontAttributes="Bold"
+                    WidthRequest="150"
+                    HorizontalOptions="Center"
+                    VerticalOptions="End"
+                    Margin="0,10,0,0"/>
+
+            <Label x:Name="ConnectionStatusLabel"
+                   Text="{Binding StatusMessage}"
+                   FontSize="18"
+                   HorizontalOptions="Center"
+                   TextColor="#000000" 
+                   Margin="0,10,0,0"/>
+        </VerticalStackLayout>
+    </ScrollView>
+    <!-- End of ScrollView -->
+</ContentPage>
